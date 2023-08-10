@@ -1,0 +1,26 @@
+:where(.css-dev-only-do-not-override-fpg3f5).ant-menu-light .ant-menu-item {
+  text-align: start;
+  font-size: 16px;
+  align-items: center;
+}
+:where(.css-dev-only-do-not-override-fpg3f5).ant-menu-light .ant-menu-item-selected {
+  background-color: #ff7506;
+  color: white;
+}
+
+.sider-logo {
+  width: 100%;
+  padding: 20%;
+}
+.sider-button {
+  /* width: 100%; */
+  margin-inline: 4px;
+  margin-block: 4px;
+  font-size: 16px;
+  text-align: start;
+  width: calc(100% - 8px);
+  margin-top: 110%;
+}
+.sider-button-image {
+  margin-right: 5%;
+}

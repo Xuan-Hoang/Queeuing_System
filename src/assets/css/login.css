@@ -1,0 +1,43 @@
+.login-slider {
+  text-align: center;
+  width: 41.11vw;
+  background-color: var(--bg, #f6f6f6);
+}
+.login-content {
+  width: 58.89vw;
+  background-color: var(--white, #fff);
+  text-align: start;
+}
+.login-content-content {
+  padding: 10%;
+}
+.login-content-image {
+  /* margin-top: 40%; */
+  max-width: 70%;
+}
+.login-slider-img {
+  margin-top: 50%;
+  max-width: 100%;
+}
+.login-slider-form {
+  margin: 15% 15% 0 15%;
+}
+
+.login-slider-title {
+  margin: 0;
+}
+.login-slider-form-item {
+  text-align: start;
+  margin: 0;
+}
+
+.forgot-password-link {
+  text-align: start;
+  color: #ff9138;
+  margin: 0;
+}
+.login-slider-form-submit {
+  width: 35%;
+  border-radius: 8px;
+  margin: 0 5% 0 5%;
+}
