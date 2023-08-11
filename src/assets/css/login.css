@@ -1,10 +1,10 @@
 .login-slider {
   text-align: center;
-  width: 41.11vw;
+  width: 40vw;
   background-color: var(--bg, #f6f6f6);
 }
 .login-content {
-  width: 58.89vw;
+  width: 60vw;
   background-color: var(--white, #fff);
   text-align: start;
 }
@@ -12,11 +12,9 @@
   padding: 10%;
 }
 .login-content-image {
-  /* margin-top: 40%; */
   max-width: 70%;
 }
 .login-slider-img {
-  margin-top: 50%;
   max-width: 100%;
 }
 .login-slider-form {
@@ -40,4 +38,9 @@
   width: 35%;
   border-radius: 8px;
   margin: 0 5% 0 5%;
+  background: var(--orange-orange-400, #ff9138);
+}
+.login-slider-empty-div {
+  margin-top: 10%;
+  height: 100px;
 }

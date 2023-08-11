@@ -1,61 +1,44 @@
+// src/features/logoSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk, RootState } from '../../store';
 import { firestore } from '../../../config/firebaseConfig';
 import { Logo } from '../../../types/logoType';
 
-interface LogoState {
-  logos: Logo[];
-  loading: boolean;
-  error: string | null;
-}
-
-const initialState: LogoState = {
-  logos: [],
-  loading: false,
-  error: null,
+const initialState: Logo = {
+  logo: '',
+  coverPhoto: '',
+  coverPhoto2: '',
+  id: '',
 };
 
 const logoSlice = createSlice({
   name: 'logo',
   initialState,
   reducers: {
-    fetchLogosStart(state) {
-      state.loading = true;
-      state.error = null;
-    },
-    fetchLogosSuccess(state, action: PayloadAction<Logo[]>) {
-      state.logos = action.payload;
-      state.loading = false;
-    },
-
-    fetchLogosFailure(state, action: PayloadAction<string>) {
-      state.loading = false;
-      state.error = action.payload;
+    setData: (state, action: PayloadAction<Logo>) => {
+      return { ...state, ...action.payload };
     },
   },
 });
 
-export const { fetchLogosStart, fetchLogosSuccess, fetchLogosFailure } = logoSlice.actions;
+export const { setData } = logoSlice.actions;
 
 export default logoSlice.reducer;
 
-export const fetchLogos = (): AppThunk => async (dispatch) => {
+// Selector để lấy dữ liệu logo từ Redux Store
+export const selectLogo = (state: RootState) => state.logo;
+export const fetchLogoData = (): AppThunk => async (dispatch) => {
   try {
-    dispatch(fetchLogosStart());
-    const logoRef = firestore.collection('logo');
-    const snapshot = await logoRef.get();
-    const logos: Logo[] = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      logo: doc.data().logo,
-      coverPhoto: doc.data().coverPhoto,
-      coverPhoto2: doc.data().coverPhoto2,
-    }));
-    dispatch(fetchLogosSuccess(logos));
+    const docRef = firestore.collection('logo').doc('urqD3DjswAVRthjcII1h');
+    const doc = await docRef.get();
+
+    if (doc.exists) {
+      const logoData = doc.data() as Logo;
+      dispatch(setData(logoData));
+    } else {
+      console.log('No such document!');
+    }
   } catch (error) {
-    dispatch(fetchLogosFailure('Failed to fetch Logo.'));
+    console.error('Error fetching logo data:', error);
   }
 };
-
-export const selectLogos = (state: RootState) => state.logo.logos;
-
-export const selectLoading = (state: RootState) => state.logo.loading;

@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
       <SiderPage />
       <Layout>
         <HeaderPage />
-        <Content>{contentName === 'profile' && <Profile />}</Content>
+        <Content style={{ padding: '3%' }}>{contentName === 'profile' && <Profile />}</Content>
       </Layout>
     </Layout>
   );

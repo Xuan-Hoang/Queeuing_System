@@ -1,0 +1,26 @@
+.profile {
+  margin-right: 5%;
+  padding: 2%;
+  border-radius: 12px;
+  background: var(--white, #fff);
+}
+.profile-form-input {
+  background: var(--gray-gray-50, #eaeaec);
+  color: var(--gray-gray-400-text, #535261);
+  font-weight: 400;
+}
+.profile-circle-container {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-circle-image {
+  object-fit: contain;
+  min-width: 350px;
+  min-height: 350px;
+}

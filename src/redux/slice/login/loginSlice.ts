@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { firestore } from '../../../config/firebaseConfig';
 
-import { AppDispatch } from '../../store';
+import { AppDispatch, RootState } from '../../store';
 import { Account } from '../../../types/accountType';
 
+interface ResetPasswordInfo {
+  email: string;
+}
 export const loginSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null as null | Account,
+    resetPasswordInfo: null as null | ResetPasswordInfo,
   },
   reducers: {
     setUser: (state, action) => {
@@ -20,7 +24,7 @@ export const loginSlice = createSlice({
 });
 
 export const { setUser, clearUser } = loginSlice.actions;
-export default loginSlice.reducer;
+
 export const loginWithEmailAndPassword = (username: string, password: string) => async (dispatch: AppDispatch) => {
   try {
     const usersRef = firestore.collection('Account');
@@ -29,13 +33,79 @@ export const loginWithEmailAndPassword = (username: string, password: string) =>
     if (!querySnapshot.empty) {
       const userData = querySnapshot.docs[0].data();
       dispatch(setUser(userData));
-      localStorage.setItem('user', JSON.stringify(userData));
-      return true;
+      const username = userData.username;
+      localStorage.setItem('username', username);
+      return username || '';
     } else {
-      return false;
+      return '';
     }
   } catch (error) {
     console.error('Error logging in:', error);
-    return false;
+    return '';
   }
 };
+
+export const fetchUserDataByUser = (username: string) => async (dispatch: AppDispatch) => {
+  try {
+    const usersRef = firestore.collection('Account');
+    const querySnapshot = await usersRef.where('username', '==', username).get();
+
+    if (!querySnapshot.empty) {
+      const userData = querySnapshot.docs[0].data();
+      dispatch(setUser(userData));
+    } else {
+      console.log('User not found');
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+};
+
+export const checkEmail = (email: string) => async (dispatch: AppDispatch) => {
+  try {
+    const usersRef = firestore.collection('Account');
+    const querySnapshot = await usersRef.where('email', '==', email).where('email', '==', email).get();
+
+    if (!querySnapshot.empty) {
+      const userData = querySnapshot.docs[0].data();
+      dispatch(setUser(userData));
+      const email = userData.email;
+      localStorage.setItem('email', email);
+      return email || '';
+    } else {
+      return '';
+    }
+  } catch (error) {
+    console.error('Error logging in:', error);
+    return '';
+  }
+};
+export const updatePasswordByEmail = (newPassword: string) => async (dispatch: AppDispatch) => {
+  try {
+    const storedEmail = localStorage.getItem('email');
+
+    if (storedEmail) {
+      const usersRef = firestore.collection('Account');
+      const querySnapshot = await usersRef.where('email', '==', storedEmail).get();
+
+      if (!querySnapshot.empty) {
+        const userDoc = querySnapshot.docs[0];
+        // Update the password field
+        await userDoc.ref.update({ password: newPassword });
+
+        // Fetch and dispatch the updated user data
+        const updatedQuerySnapshot = await usersRef.doc(userDoc.id).get();
+        const updatedUserData = updatedQuerySnapshot.data();
+        dispatch(setUser(updatedUserData));
+      } else {
+        console.log('User with stored email not found');
+      }
+    } else {
+      console.log('No stored email in localStorage');
+    }
+  } catch (error) {
+    console.error('Error updating password:', error);
+  }
+};
+
+export default loginSlice.reducer;
