@@ -7,28 +7,30 @@ import { Col, Image, Row } from 'antd';
 import bell from '../../assets/icon/bell.svg';
 import '../../assets/css/header.css';
 import { NavLink } from 'react-router-dom';
+
 const HeaderPage = () => {
   const pathToContent: { [key: string]: string } = {
-    '/home/profile': 'Thông Tin Cá Nhân',
-    '/home/dashboard': 'Dashboard',
-    '/home/device': 'Thiết Bị',
-    '/home/service': 'Dịch vụ',
-    '/home/number_level': 'Cấp Số',
-    '/home/report': 'Báo cáo',
-    '/home/setting': 'Cài đặt hệ thống',
+    '/profile': 'Thông Tin Cá Nhân',
+    '/dashboard': 'Dashboard',
+    '/device': 'Thiết Bị > Danh Sách Thiết Bị',
+    '/device/detail': 'Thiết Bị > Danh Sách Thiết Bị > Chi tiết thiết bị',
+    '/service': 'Dịch vụ',
+    '/number_level': 'Cấp Số',
+    '/report': 'Báo cáo',
+    '/setting': 'Cài đặt hệ thống',
   };
 
   const currentPath = window.location.pathname;
   const pContent = pathToContent[currentPath] || '';
-  const userId = localStorage.getItem('userId');
+  const username = localStorage.getItem('username');
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
 
   useEffect(() => {
-    if (userId) {
-      dispatch(fetchUserDataByUser(userId));
+    if (username && !user) {
+      dispatch(fetchUserDataByUser(username));
     }
-  }, [dispatch, userId]);
+  }, [dispatch, username, user]);
 
   if (!user) {
     return (
@@ -65,7 +67,7 @@ const HeaderPage = () => {
             <div className='heder-info-text'>
               <p className='heder-info-text1'>Xin Chao</p>
               <p className='heder-info-text2'>
-                <NavLink className='heder-info-text2' to='/home/profile'>
+                <NavLink className='heder-info-text2' to='/profile'>
                   {user.fullName}
                 </NavLink>
               </p>

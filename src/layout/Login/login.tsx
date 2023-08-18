@@ -46,7 +46,7 @@ const Login: React.FC = () => {
       setShowNotification3(true);
       localStorage.setItem('username', success);
       setTimeout(() => {
-        navigate('/home/profile');
+        navigate('profile');
       }, 600);
     } else {
       setShowNotification(true);

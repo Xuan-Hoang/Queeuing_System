@@ -56,6 +56,7 @@ const ResetPassword = () => {
     } else {
     }
   };
+  //lấy ảnh
   const logo = useSelector(selectLogo);
   useEffect(() => {
     dispatch(fetchLogoData());

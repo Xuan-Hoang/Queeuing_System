@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { firestore } from '../../../config/firebaseConfig';
 
-import { AppDispatch, RootState } from '../../store';
+import { AppDispatch } from '../../store';
 import { Account } from '../../../types/accountType';
 
 interface ResetPasswordInfo {
@@ -87,13 +87,9 @@ export const updatePasswordByEmail = (newPassword: string) => async (dispatch: A
     if (storedEmail) {
       const usersRef = firestore.collection('Account');
       const querySnapshot = await usersRef.where('email', '==', storedEmail).get();
-
       if (!querySnapshot.empty) {
         const userDoc = querySnapshot.docs[0];
-        // Update the password field
         await userDoc.ref.update({ password: newPassword });
-
-        // Fetch and dispatch the updated user data
         const updatedQuerySnapshot = await usersRef.doc(userDoc.id).get();
         const updatedUserData = updatedQuerySnapshot.data();
         dispatch(setUser(updatedUserData));

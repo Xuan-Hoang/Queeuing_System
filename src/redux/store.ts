@@ -2,6 +2,7 @@ import { Action, ThunkAction, ThunkDispatch, configureStore } from '@reduxjs/too
 import authReducer from './slice/login/loginSlice';
 import userReducer from './slice/login/loginSlice';
 import logoReducer from './slice/logo/logoSlice';
+import devicesReducer from './slice/device/deviceSlice';
 import { Dispatch } from 'react';
 
 const store = configureStore({
@@ -9,6 +10,7 @@ const store = configureStore({
     auth: authReducer,
     user: userReducer,
     logo: logoReducer,
+    devices: devicesReducer,
   },
 });
 

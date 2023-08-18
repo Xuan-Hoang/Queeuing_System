@@ -27,32 +27,32 @@ const SiderPage = () => {
           {
             key: '0',
             icon: <img src={dashboard} alt='' />,
-            label: <Link to='/home/dashboard'>Dashboard</Link>,
+            label: <Link to=' dashboard'>Dashboard</Link>,
           },
           {
             key: '1',
             icon: <img src={device} alt='' />,
-            label: <Link to='/home/device'>Thiết Bị</Link>,
+            label: <Link to='device'>Thiết Bị</Link>,
           },
           {
             key: '2',
             icon: <img src={service} alt='' />,
-            label: <Link to='/home/service'>Dịch vụ</Link>,
+            label: <Link to='service'>Dịch vụ</Link>,
           },
           {
             key: '3',
             icon: <img src={number_level} alt='' />,
-            label: <Link to='/home/number_level'>Cấp Số</Link>,
+            label: <Link to='number_level'>Cấp Số</Link>,
           },
           {
             key: '4',
             icon: <img src={report} alt='' />,
-            label: <Link to='/home/report'>Báo Cáo</Link>,
+            label: <Link to='report'>Báo Cáo</Link>,
           },
           {
             key: '5',
             icon: <img src={setting} alt='' />,
-            label: <Link to='/home/setting'>Cài đặt hệ thống</Link>,
+            label: <Link to='setting'>Cài đặt hệ thống</Link>,
           },
         ]}
       />

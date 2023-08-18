@@ -33,5 +33,21 @@ body,
 }
 .ant-input,
 .ant-input-password {
-  font-size: large;
+  /* font-size: large; */
+  font-size: 19.5px;
+  border-radius: 7px;
+}
+.ant-select-selection-overflow-item {
+  border-radius: 9px;
+}
+.ant-select-selection-overflow {
+  padding: 5px;
+}
+.ant-select-selection-overflow-item {
+  margin-right: 5px;
+}
+:where(.css-dev-only-do-not-override-fpg3f5).ant-select-multiple.ant-select-lg .ant-select-selection-item {
+  border-radius: 10px;
+  height: auto;
+  background: var(--orange-orange-300, #ffac6a);
 }
