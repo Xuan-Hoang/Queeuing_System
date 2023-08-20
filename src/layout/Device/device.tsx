@@ -34,14 +34,14 @@ const DeviceTable: React.FC = () => {
     setModalContent([]);
   };
   const handDetail = (idDevice: string) => {
-    localStorage.setItem('idDevice', idDevice);
+    localStorage.setItem('id', idDevice);
     console.log(idDevice);
   };
 
   const columns: ColumnsType<Device> = [
     {
       title: 'Mã Thiết bị',
-      dataIndex: 'idDevice',
+      dataIndex: 'id',
       width: '8vw',
     },
     {
@@ -97,7 +97,7 @@ const DeviceTable: React.FC = () => {
       dataIndex: 'detail',
       width: '7vw',
       render: (_, record) => (
-        <NavLink to={`/device/detail`} onClick={() => handDetail(record.idDevice)}>
+        <NavLink to={`/device/detail`} onClick={() => handDetail(record.id)}>
           Chi tiết
         </NavLink>
       ),
@@ -107,7 +107,7 @@ const DeviceTable: React.FC = () => {
       dataIndex: 'update',
       width: '7vw',
       render: (_, record) => (
-        <NavLink to={`/device/update`} onClick={() => handDetail(record.idDevice)}>
+        <NavLink to={`/device/update`} onClick={() => handDetail(record.id)}>
           Update
         </NavLink>
       ),

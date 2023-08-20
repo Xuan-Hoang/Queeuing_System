@@ -20,7 +20,7 @@ const AddDevice = () => {
   const navigate = useNavigate();
 
   const [newDevice, setNewDevice] = useState<Device>({
-    idDevice: '',
+    id: '',
     nameDevice: '',
     IPAddress: '',
     statusOperation: '',
@@ -33,7 +33,7 @@ const AddDevice = () => {
 
   const handleAddDevice = async () => {
     try {
-      if (!newDevice.idDevice || !newDevice.nameDevice || !newDevice.IPAddress || !newDevice.typeDevice) {
+      if (!newDevice.id || !newDevice.nameDevice || !newDevice.IPAddress || !newDevice.typeDevice) {
         notification.warning({
           message: 'Cảnh báo',
           description: 'Bạn chưa điền đầy đủ thông tin',
@@ -105,7 +105,7 @@ const AddDevice = () => {
           <Col span={11}>
             <Form layout='vertical'>
               <Form.Item label='Mã thiết bị:'>
-                <Input value={newDevice.idDevice} onChange={(e) => handleInputChange('idDevice', e.target.value)} placeholder='Nhập mã thiết bị' />
+                <Input value={newDevice.id} onChange={(e) => handleInputChange('id', e.target.value)} placeholder='Nhập mã thiết bị' />
               </Form.Item>
               <Form.Item label='Tên thiết bị:'>
                 <Input value={newDevice.nameDevice} onChange={(e) => handleInputChange('nameDevice', e.target.value)} placeholder='Nhập tên thiết bị' />

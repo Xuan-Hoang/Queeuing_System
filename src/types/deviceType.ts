@@ -1,5 +1,5 @@
 export interface Device {
-  idDevice: string;
+  id: string;
   nameDevice: string;
   IPAddress: string;
   statusOperation: string;
