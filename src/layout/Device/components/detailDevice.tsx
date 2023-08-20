@@ -11,13 +11,13 @@ import { fetchDevices } from '../../../redux/slice/device/deviceSlice';
 const DetailDevice = () => {
   const dispatch: AppDispatch = useDispatch();
   const devices = useSelector((state: RootState) => state.devices);
-  const idDevice = localStorage.getItem('idDevice') || '';
+  const id = localStorage.getItem('id') || '';
 
   useEffect(() => {
     dispatch(fetchDevices());
   }, [dispatch]);
 
-  const detailDevice = devices.find((device) => device.idDevice === idDevice);
+  const detailDevice = devices.find((device) => device.id === id);
 
   return (
     <Content hasSider style={{ height: '100vh', width: '100%' }}>
@@ -36,7 +36,7 @@ const DetailDevice = () => {
                 <p>Địa chỉ IP:</p>
               </Col>
               <Col offset={1} className='device-detail-text-detail'>
-                <p>{detailDevice?.idDevice}</p>
+                <p>{detailDevice?.id}</p>
 
                 <p>{detailDevice?.nameDevice}</p>
 
@@ -64,7 +64,7 @@ const DetailDevice = () => {
           </Col>
           <Col span={24}>
             <p className='device-detail-text'>Dịch vụ sử dụng:</p>
-            <span className='device-detail-text-detail'>{detailDevice?.useService}</span>
+            <span className='device-detail-text-detail'>{detailDevice?.useService.join(', ')}</span>
           </Col>
         </Row>
       </div>

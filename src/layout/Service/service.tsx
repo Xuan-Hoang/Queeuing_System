@@ -71,7 +71,7 @@ const ServicePage: React.FC = () => {
       dataIndex: 'detail',
       width: '5vw',
       render: (_, record) => (
-        <NavLink to={`/service/detail`} onClick={() => handDetail(record.idDevice)}>
+        <NavLink to={`/service/detail`} onClick={() => handDetail(record.id)}>
           Chi tiết
         </NavLink>
       ),
@@ -81,7 +81,7 @@ const ServicePage: React.FC = () => {
       dataIndex: 'update',
       width: '5vw',
       render: (_, record) => (
-        <NavLink to={`/service/update`} onClick={() => handDetail(record.idDevice)}>
+        <NavLink to={`/service/update`} onClick={() => handDetail(record.id)}>
           Update
         </NavLink>
       ),

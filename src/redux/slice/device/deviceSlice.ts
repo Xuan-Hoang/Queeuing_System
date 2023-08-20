@@ -21,7 +21,11 @@ export const fetchDevices = () => async (dispatch: AppDispatch) => {
   try {
     const devicesRef = firestore.collection('Device');
     const snapshot = await devicesRef.get();
-    const devicesData = snapshot.docs.map((doc) => doc.data() as Device);
+    const devicesData = snapshot.docs.map((doc) => {
+      const deviceData = doc.data() as Device;
+      deviceData.id = doc.id;
+      return deviceData;
+    });
     dispatch(setDevices(devicesData));
   } catch (error) {
     console.error('Error fetching devices:', error);
@@ -30,17 +34,50 @@ export const fetchDevices = () => async (dispatch: AppDispatch) => {
 
 export const addDevice = (newDevice: Device) => async (dispatch: AppDispatch, getState: () => RootState) => {
   const state = getState();
-  const isDuplicate = state.devices.some((device) => device.idDevice === newDevice.idDevice);
+
+  const isDuplicate = state.devices.some((device) => device.id === newDevice.id);
 
   if (isDuplicate) {
     throw new Error('Device ID is already present.');
   }
+
   try {
-    const devicesRef = firestore.collection('Device');
-    await devicesRef.add(newDevice);
+    const devicesRef = firestore.collection('Device').doc(newDevice.id);
+    await devicesRef.set(newDevice);
     return true;
   } catch (error) {
     console.error('Error adding device:', error);
     throw error;
   }
 };
+export const updateDevice = (deviceId: string, updatedDevice: Device) => async (dispatch: AppDispatch, getState: () => RootState) => {
+  try {
+    const devicesRef = firestore.collection('Device').doc(deviceId);
+    await devicesRef.update(updatedDevice);
+
+    return true;
+  } catch (error) {
+    console.error('Error updating device:', error);
+    throw error;
+  }
+};
+export const changeDeviceId = createAsyncThunk('devices/changeDeviceId', async ({ oldId, newId }: { oldId: string; newId: string }, { dispatch, getState }) => {
+  try {
+    // Lấy dữ liệu của tài liệu cũ
+    const oldDeviceRef = firestore.collection('Device').doc(oldId);
+    const oldDeviceSnapshot = await oldDeviceRef.get();
+    const oldDeviceData = oldDeviceSnapshot.data() as Device;
+
+    // Tạo tài liệu mới với id mới
+    const newDeviceRef = firestore.collection('Device').doc(newId);
+    await newDeviceRef.set(oldDeviceData);
+
+    // Xoá tài liệu cũ
+    await oldDeviceRef.delete();
+
+    return true;
+  } catch (error) {
+    console.error('Error changing device ID:', error);
+    throw error;
+  }
+});

@@ -14,6 +14,7 @@ import DetailDevice from './layout/Device/components/detailDevice';
 import AddDevice from './layout/Device/components/addDevice';
 import UpdateDevice from './layout/Device/components/updateDevice';
 import ServicePage from './layout/Service/service';
+import AddService from './layout/Service/components/addService';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                   <Route path='/device/add-device' element={<AddDevice />} />
                   <Route path='/device/update' element={<UpdateDevice />} />\
                   <Route path='/service' element={<ServicePage />} />
+                  <Route path='/service/add-service' element={<AddService />} />
                 </Routes>
               </LayoutRoute>
             }
