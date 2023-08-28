@@ -20,12 +20,8 @@ const DetailDevice = () => {
     dispatch(fetchDevices());
   }, [dispatch]);
 
-  const detailDevice = devices.find((device) => device.id === id);
-  const handUpdate = (idDevice: string) => {
-    localStorage.setItem('id', idDevice);
-    navigate(`/device/update`);
-    console.log(idDevice);
-  };
+  const detailDevice = devices.find((device) => device.idDevice === idDevice);
+
   return (
     <Content>
       <div>
@@ -47,10 +43,10 @@ const DetailDevice = () => {
 
                     <p>Tên thiết bị:</p>
 
-                    <p>Địa chỉ IP:</p>
-                  </Col>
-                  <Col offset={1} className='device-detail-text-detail'>
-                    <p>{detailDevice?.id}</p>
+                <p>Địa chỉ IP:</p>
+              </Col>
+              <Col offset={1} className='device-detail-text-detail'>
+                <p>{detailDevice?.idDevice}</p>
 
                     <p>{detailDevice?.nameDevice}</p>
 
@@ -72,28 +68,16 @@ const DetailDevice = () => {
 
                     <p>{detailDevice?.usernameDevice}</p>
 
-                    <p>{detailDevice?.passwordDevice}</p>
-                  </Col>
-                </Row>
-              </Col>
-              <Col span={24}>
-                <p className='device-detail-text'>Dịch vụ sử dụng:</p>
-                <span className='device-detail-text-detail'>{detailDevice?.useService.join(', ')}</span>
+                <p>{detailDevice?.passwordDevice}</p>
               </Col>
             </Row>
-          </div>
-        </Col>
-        <Col span={1}>
-          <button className='square-button' onClick={() => handUpdate(id)}>
-            <div>
-              <EditFilled className='square-button-icon' />
-            </div>
-            <div>
-              <p className='square-button-text'>Cập nhật thết bị</p>
-            </div>
-          </button>
-        </Col>
-      </Row>
+          </Col>
+          <Col span={24}>
+            <p className='device-detail-text'>Dịch vụ sử dụng:</p>
+            <span className='device-detail-text-detail'>{detailDevice?.useService}</span>
+          </Col>
+        </Row>
+      </div>
     </Content>
   );
 };

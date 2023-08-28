@@ -107,8 +107,8 @@ const DeviceTable: React.FC = () => {
       dataIndex: 'update',
       width: '7vw',
       render: (_, record) => (
-        <NavLink to={`/device/update`} onClick={() => handDetail(record.id)}>
-          Cập nhật
+        <NavLink to={`/device/update`} onClick={() => handDetail(record.idDevice)}>
+          Update
         </NavLink>
       ),
     },

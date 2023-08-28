@@ -40,13 +40,11 @@ const AddDevice = () => {
     };
 
     try {
-      const result = await dispatch(addDevice(newDevice));
-      if (!newDevice.id || !newDevice.nameDevice || !newDevice.IPAddress || !newDevice.typeDevice) {
-        messageConfig.warning.description = 'Bạn chưa điền đầy đủ thông tin';
-      } else if (result === 'duplicate_id') {
-        messageConfig.warning.description = 'Id đã có trong hệ thống';
-      } else if (result === 'duplicate_username') {
-        messageConfig.warning.description = 'Tài khoản đã có trong hệ thống';
+      if (!newDevice.idDevice || !newDevice.nameDevice || !newDevice.IPAddress || !newDevice.typeDevice) {
+        notification.warning({
+          message: 'Cảnh báo',
+          description: 'Bạn chưa điền đầy đủ thông tin',
+        });
       } else {
         await dispatch(addDevice(newDevice));
         messageConfig.success.description = 'Thêm thiết bị thành công.';

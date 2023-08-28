@@ -159,15 +159,16 @@ const UpdateDevice = () => {
           </Col>
         </Row>
       </div>
-
-      <Col span={23}>
-        <Button style={{ background: 'var(--orange-orange-50, #FFF2E7)' }} className='addDevice-submit' onClick={(e) => navigate(`/device`)}>
-          Hủy bỏ
-        </Button>
-        <Button className='addDevice-submit' type='primary' style={{ background: 'var(--orange-orange-400, #ff9138)' }} onClick={handleUpdateDevice}>
-          Tiếp tục
-        </Button>
-      </Col>
+      <div className=''>
+        <Col span={23}>
+          <Button style={{ background: 'var(--orange-orange-50, #FFF2E7)' }} className='addDevice-submit' onClick={(e) => navigate(`/device`)}>
+            Hủy bỏ
+          </Button>
+          <Button className='addDevice-submit' type='primary' style={{ background: 'var(--orange-orange-400, #ff9138)' }}>
+            Tiếp tục
+          </Button>
+        </Col>
+      </div>
     </Content>
   );
 };
