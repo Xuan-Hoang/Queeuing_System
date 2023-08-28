@@ -46,8 +46,11 @@ body,
 .ant-select-selection-overflow-item {
   margin-right: 5px;
 }
-:where(.css-dev-only-do-not-override-fpg3f5).ant-select-multiple.ant-select-lg .ant-select-selection-item {
+:where(.css-dev-only-do-not-override-17a39f8).ant-select-multiple.ant-select-lg .ant-select-selection-item {
   border-radius: 10px;
   height: auto;
   background: var(--orange-orange-300, #ffac6a);
+}
+:where(.css-dev-only-do-not-override-17a39f8).ant-input-number .ant-input-number-input:placeholder-shown {
+  font-weight: 500;
 }

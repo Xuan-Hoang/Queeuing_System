@@ -1,0 +1,17 @@
+.service {
+  text-align: start;
+}
+.service-numberLevel {
+  margin: 0;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+}
+.service-content {
+  border-radius: 16px;
+  background: var(--white, #fff);
+  padding: 2%;
+}
+.service-button {
+  text-align: center;
+}

@@ -8,58 +8,81 @@ import number_level from '../../assets/icon/number_level.svg';
 import report from '../../assets/icon/report.svg';
 import setting from '../../assets/icon/setting.svg';
 import logout from '../../assets/icon/logout.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 const { Sider } = Layout;
 const siderStyle: React.CSSProperties = {
   textAlign: 'center',
   color: '#fff',
-  backgroundColor: '#FFFFFF',
+  backgroundColor: '#ffff',
+};
+const containerStyle: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
 };
 const SiderPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  let defaultSelectedKey = '0';
+  if (location.pathname.startsWith('/dashboard')) {
+    defaultSelectedKey = '0';
+  } else if (location.pathname.startsWith('/device' || '/device/detail' || '/device/update' || '/device/add')) {
+    defaultSelectedKey = '1';
+  } else if (location.pathname.startsWith('/service' || '/service/detail' || '/service/update' || '/service/add')) {
+    defaultSelectedKey = '2';
+  } else if (location.pathname.startsWith('/number_level')) {
+    defaultSelectedKey = '3';
+  } else if (location.pathname.startsWith('/report')) {
+    defaultSelectedKey = '4';
+  } else if (location.pathname.startsWith('/setting')) {
+    defaultSelectedKey = '5';
+  }
   return (
     <Sider style={siderStyle}>
-      <img className='sider-logo' src={logo} alt='' />
-      <Menu
-        className='sider-menu'
-        defaultSelectedKeys={['0']}
-        items={[
-          {
-            key: '0',
-            icon: <img src={dashboard} alt='' />,
-            label: <Link to=' dashboard'>Dashboard</Link>,
-          },
-          {
-            key: '1',
-            icon: <img src={device} alt='' />,
-            label: <Link to='device'>Thiết Bị</Link>,
-          },
-          {
-            key: '2',
-            icon: <img src={service} alt='' />,
-            label: <Link to='service'>Dịch vụ</Link>,
-          },
-          {
-            key: '3',
-            icon: <img src={number_level} alt='' />,
-            label: <Link to='number_level'>Cấp Số</Link>,
-          },
-          {
-            key: '4',
-            icon: <img src={report} alt='' />,
-            label: <Link to='report'>Báo Cáo</Link>,
-          },
-          {
-            key: '5',
-            icon: <img src={setting} alt='' />,
-            label: <Link to='setting'>Cài đặt hệ thống</Link>,
-          },
-        ]}
-      />
-      <Button className='sider-button' onClick={() => navigate(`/login`)}>
-        <img className='sider-button-image' src={logout} alt='' />
-        Đăng Xuất
-      </Button>
+      <div style={containerStyle}>
+        <img className='sider-logo' src={logo} alt='' />
+        <Menu
+          className='sider-menu'
+          defaultSelectedKeys={[defaultSelectedKey]}
+          items={[
+            {
+              key: '0',
+              icon: <img src={dashboard} alt='' />,
+              label: <Link to='dashboard'>Dashboard</Link>,
+            },
+            {
+              key: '1',
+              icon: <img src={device} alt='' />,
+              label: <Link to='device'>Thiết Bị</Link>,
+            },
+            {
+              key: '2',
+              icon: <img src={service} alt='' />,
+              label: <Link to='service'>Dịch vụ</Link>,
+            },
+            {
+              key: '3',
+              icon: <img src={number_level} alt='' />,
+              label: <Link to='number_level'>Cấp Số</Link>,
+            },
+            {
+              key: '4',
+              icon: <img src={report} alt='' />,
+              label: <Link to='report'>Báo Cáo</Link>,
+            },
+            {
+              key: '5',
+              icon: <img src={setting} alt='' />,
+              label: <Link to='setting'>Cài đặt hệ thống</Link>,
+            },
+          ]}
+        />
+        <div style={{ flex: 0.9 }}></div>
+        <Button className='sider-button' onClick={() => navigate(`/login`)}>
+          <img className='sider-button-image' src={logout} alt='' />
+          <span style={{ fontSize: '18px' }}>Đăng Xuất</span>
+        </Button>
+      </div>
     </Sider>
   );
 };

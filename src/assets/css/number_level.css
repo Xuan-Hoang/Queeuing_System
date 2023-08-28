@@ -1,0 +1,53 @@
+.add-number_level {
+  padding: 1%;
+  height: 80vh;
+  border-radius: 16px;
+  background: var(--white, #fff);
+  box-shadow: 2px 2px 8px 0px rgba(232, 239, 244, 0.8);
+}
+.number_level-select {
+  width: 13vw;
+  text-align: start;
+}
+.number_level-header {
+  color: var(--orange-orange-500, #ff7506);
+  font-size: 32px;
+  font-family: Nunito;
+  font-weight: 700;
+}
+.number_level-header-span {
+  color: var(--gray-gray-400-text, #535261);
+  font-family: Nunito;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+}
+:where(.css-dev-only-do-not-override-17a39f8).ant-modal .ant-modal-content {
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: none;
+}
+:where(.css-dev-only-do-not-override-17a39f8).ant-modal .ant-modal-body {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.numbel_level-add-model {
+  text-align: center;
+}
+
+.numbel_level-add-model-title .numbel_level-add-model-service {
+  color: var(--gray-gray-400-text, #535261);
+  margin: 0;
+}
+.numbel_level-add-model-numerical_order {
+  color: var(--orange-orange-500, #ff7506);
+  font-size: 56px;
+  margin: 0;
+}
+.numbel_level-add-model-date {
+  background: var(--orange-orange-400, #ff9138);
+  width: 100%;
+  padding: 1px;
+  color: var(--white, #fff);
+  font-size: 22px;
+  border-radius: 10px;
+}

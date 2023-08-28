@@ -3,6 +3,8 @@ import authReducer from './slice/login/loginSlice';
 import userReducer from './slice/login/loginSlice';
 import logoReducer from './slice/logo/logoSlice';
 import devicesReducer from './slice/device/deviceSlice';
+import servicesReducer from './slice/service/serviceSlice';
+import numberLevelsReducer from './slice/numberLevel/numberLevelSilce';
 import { Dispatch } from 'react';
 
 const store = configureStore({
@@ -11,6 +13,8 @@ const store = configureStore({
     user: userReducer,
     logo: logoReducer,
     devices: devicesReducer,
+    services: servicesReducer,
+    numberLevels: numberLevelsReducer,
   },
 });
 

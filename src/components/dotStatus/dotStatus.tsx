@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import React from 'react';
 
 interface MyIconProps {
@@ -9,6 +10,10 @@ const DotStatus: React.FC<MyIconProps> = ({ status }) => {
 
   if (status === 'Ngưng hoạt động' || status === 'Mất kết nối') {
     iconColor = '#EC3740';
+  } else if (status === 'Đang thực hiện') {
+    iconColor = '#5490EB';
+  } else {
+    iconColor === '#6C7585';
   }
 
   return (

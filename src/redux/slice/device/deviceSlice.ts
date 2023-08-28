@@ -35,10 +35,12 @@ export const fetchDevices = () => async (dispatch: AppDispatch) => {
 export const addDevice = (newDevice: Device) => async (dispatch: AppDispatch, getState: () => RootState) => {
   const state = getState();
 
-  const isDuplicate = state.devices.some((device) => device.id === newDevice.id);
-
-  if (isDuplicate) {
-    throw new Error('Device ID is already present.');
+  const duplicateId = state.devices.some((device) => device.id === newDevice.id);
+  const duplicateUsername = state.devices.some((device) => device.usernameDevice === newDevice.usernameDevice);
+  if (duplicateId) {
+    return 'duplicate_id';
+  } else if (duplicateUsername) {
+    return 'duplicate_username';
   }
 
   try {
@@ -63,18 +65,12 @@ export const updateDevice = (deviceId: string, updatedDevice: Device) => async (
 };
 export const changeDeviceId = createAsyncThunk('devices/changeDeviceId', async ({ oldId, newId }: { oldId: string; newId: string }, { dispatch, getState }) => {
   try {
-    // Lấy dữ liệu của tài liệu cũ
     const oldDeviceRef = firestore.collection('Device').doc(oldId);
     const oldDeviceSnapshot = await oldDeviceRef.get();
     const oldDeviceData = oldDeviceSnapshot.data() as Device;
-
-    // Tạo tài liệu mới với id mới
     const newDeviceRef = firestore.collection('Device').doc(newId);
     await newDeviceRef.set(oldDeviceData);
-
-    // Xoá tài liệu cũ
     await oldDeviceRef.delete();
-
     return true;
   } catch (error) {
     console.error('Error changing device ID:', error);

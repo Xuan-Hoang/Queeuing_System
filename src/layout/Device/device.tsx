@@ -52,12 +52,12 @@ const DeviceTable: React.FC = () => {
     {
       title: 'Địa chỉ IP',
       dataIndex: 'IPAddress',
-      width: '10vw',
+      width: '9vw',
     },
     {
       title: 'Trạng thái hoạt động',
       dataIndex: 'statusOperation',
-      width: '14vw',
+      width: '13vw',
       render: (text) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <DotStatus status={text} />
@@ -68,7 +68,7 @@ const DeviceTable: React.FC = () => {
     {
       title: 'Trạng thái kết nối',
       dataIndex: 'statusConection',
-      width: '12vw',
+      width: '11vw',
       render: (text) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <DotStatus status={text} />
@@ -79,7 +79,7 @@ const DeviceTable: React.FC = () => {
     {
       title: 'Dịch vụ sử dụng',
       dataIndex: 'useService',
-      width: '23vw',
+      width: '22vw',
       render: (text) => (
         <div style={{ lineHeight: '1' }}>
           {text.slice(0, 2).join(', ')}
@@ -95,7 +95,7 @@ const DeviceTable: React.FC = () => {
     {
       title: ' ',
       dataIndex: 'detail',
-      width: '7vw',
+      width: '6vw',
       render: (_, record) => (
         <NavLink to={`/device/detail`} onClick={() => handDetail(record.id)}>
           Chi tiết
@@ -108,7 +108,7 @@ const DeviceTable: React.FC = () => {
       width: '7vw',
       render: (_, record) => (
         <NavLink to={`/device/update`} onClick={() => handDetail(record.id)}>
-          Update
+          Cập nhật
         </NavLink>
       ),
     },
@@ -165,16 +165,20 @@ const DeviceTable: React.FC = () => {
         <Col span={22}>
           <Table columns={columns} dataSource={filteredData} />
         </Col>
-        <Col span={1} offset={1} onClick={() => navigate(`/device/add-device`)}>
-          <div className='device-add-layout'>
-            <PlusSquareFilled className='device-add-icon' />
-            <p className='device-add-text'>Thêm thiết bị</p>
-          </div>
+        <Col span={1} style={{ marginLeft: '1%' }} onClick={() => navigate(`/device/add`)}>
+          <button className='square-button' style={{ width: '82px' }}>
+            <div>
+              <PlusSquareFilled className='square-button-icon' />
+            </div>
+            <div>
+              <p className='square-button-text'>Thêm thiết bị</p>
+            </div>
+          </button>
         </Col>
       </Row>
 
-      <Modal visible={modalVisible} onCancel={closeModal} footer={null} width={600}>
-        {modalContent.join(', ')}
+      <Modal visible={modalVisible} onCancel={closeModal} footer={null} width={600} style={{ marginTop: '10%' }}>
+        <div style={{ padding: '3%' }}>{modalContent.join(', ')}</div>
       </Modal>
     </Content>
   );

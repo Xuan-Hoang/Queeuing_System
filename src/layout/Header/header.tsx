@@ -9,12 +9,68 @@ import '../../assets/css/header.css';
 import { NavLink } from 'react-router-dom';
 
 const HeaderPage = () => {
-  const pathToContent: { [key: string]: string } = {
+  const pathToContent: { [key: string]: React.ReactNode } = {
     '/profile': 'Thông Tin Cá Nhân',
     '/dashboard': 'Dashboard',
-    '/device': 'Thiết Bị > Danh Sách Thiết Bị',
-    '/device/detail': 'Thiết Bị > Danh Sách Thiết Bị > Chi tiết thiết bị',
-    '/service': 'Dịch vụ',
+    '/device': (
+      <>
+        <span style={{ color: ' var(--gray-blue-gray-4-place-holder, #7E7D88)' }}>Thiết bị {'>'}</span> Danh Sách Thiết Bị
+      </>
+    ),
+    '/device/detail': (
+      <>
+        <span style={{ color: ' var(--gray-blue-gray-4-place-holder, #7E7D88)' }}>
+          Thiết Bị {'>'} Danh Sách Thiết Bị {'>'}{' '}
+        </span>
+        Chi tiết thiết bị
+      </>
+    ),
+    '/device/add': (
+      <>
+        <span style={{ color: ' var(--gray-blue-gray-4-place-holder, #7E7D88)' }}>
+          Thiết Bị {'>'} Danh Sách Thiết Bị {'>'}{' '}
+        </span>
+        Thêm thiết bị
+      </>
+    ),
+    '/device/update': (
+      <>
+        <span style={{ color: ' var(--gray-blue-gray-4-place-holder, #7E7D88)' }}>
+          Thiết Bị {'>'} Danh Sách Thiết Bị {'>'}{' '}
+        </span>
+        Cập nhật thiết bị
+      </>
+    ),
+    '/service': (
+      <>
+        <span style={{ color: ' var(--gray-blue-gray-4-place-holder, #7E7D88)' }}>Dịch vụ {'>'}</span>
+        Danh Sách dịch vụ
+      </>
+    ),
+    '/service/add': (
+      <>
+        <span style={{ color: ' var(--gray-blue-gray-4-place-holder, #7E7D88)' }}>
+          Dịch vụ {'>'} Danh Sách dịch vụ {'>'}{' '}
+        </span>
+        Thêm dịch vụ
+      </>
+    ),
+    '/service/detail': (
+      <>
+        <span style={{ color: ' var(--gray-blue-gray-4-place-holder, #7E7D88)' }}>
+          Dịch vụ {'>'} Danh Sách dịch vụ {'>'}{' '}
+        </span>
+        Chi tiết
+      </>
+    ),
+    '/service/update': (
+      <>
+        <span style={{ color: ' var(--gray-blue-gray-4-place-holder, #7E7D88)' }}>
+          Dịch vụ {'>'} Danh Sách dịch vụ {'>'} Chi tiết{' '}
+        </span>
+        Cập nhật
+      </>
+    ),
     '/number_level': 'Cấp Số',
     '/report': 'Báo cáo',
     '/setting': 'Cài đặt hệ thống',
@@ -22,6 +78,7 @@ const HeaderPage = () => {
 
   const currentPath = window.location.pathname;
   const pContent = pathToContent[currentPath] || '';
+
   const username = localStorage.getItem('username');
   const dispatch: AppDispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);

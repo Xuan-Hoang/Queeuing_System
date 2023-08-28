@@ -96,9 +96,14 @@ const UpdateDevice = () => {
   return (
     <Content>
       <div>
-        <p className='device-text-header'>Thêm thiết bị</p>
+        <p className='device-text-header'>Quản lý thiết bị</p>
       </div>
-      <div className='inline'>
+      <div className='profile'>
+        <div>
+          <p className='device-text-header' style={{ fontSize: '18px', marginTop: '0' }}>
+            Thông tin thiết bị
+          </p>
+        </div>
         <Row>
           <Col span={11}>
             <Form layout='vertical'>
@@ -154,16 +159,15 @@ const UpdateDevice = () => {
           </Col>
         </Row>
       </div>
-      <div className=''>
-        <Col span={23}>
-          <Button style={{ background: 'var(--orange-orange-50, #FFF2E7)' }} className='addDevice-submit' onClick={(e) => navigate(`/device`)}>
-            Hủy bỏ
-          </Button>
-          <Button className='addDevice-submit' type='primary' style={{ background: 'var(--orange-orange-400, #ff9138)' }} onClick={handleUpdateDevice}>
-            Tiếp tục
-          </Button>
-        </Col>
-      </div>
+
+      <Col span={23}>
+        <Button style={{ background: 'var(--orange-orange-50, #FFF2E7)' }} className='addDevice-submit' onClick={(e) => navigate(`/device`)}>
+          Hủy bỏ
+        </Button>
+        <Button className='addDevice-submit' type='primary' style={{ background: 'var(--orange-orange-400, #ff9138)' }} onClick={handleUpdateDevice}>
+          Tiếp tục
+        </Button>
+      </Col>
     </Content>
   );
 };

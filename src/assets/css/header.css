@@ -4,12 +4,12 @@
 }
 .header-title {
   color: var(--orange-orange-400, #ff9138);
-
   text-align: start;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
 }
+
 .header-icon {
   text-align: end;
 }

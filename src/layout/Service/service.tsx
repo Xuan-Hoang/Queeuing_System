@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import '../../assets/css/device.css';
+import '../../assets/css/number_level.css';
 import { Table, Select, Input, Modal, Form, Row, Col } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Option } from 'antd/es/mentions';
-import { fetchDevices } from '../../redux/slice/device/deviceSlice';
 import { AppDispatch, RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { Device } from '../../types/deviceType';
@@ -12,22 +12,18 @@ import DotStatus from '../../components/dotStatus/dotStatus';
 import { PlusSquareFilled } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { fetchSevices } from '../../redux/slice/service/serviceSlice';
+import { Service } from '../../types/serviceType';
 
 const ServicePage: React.FC = () => {
   const navigate = useNavigate();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState<string[]>([]);
-
   const [filterStatusOperation, setFilterStatusOperation] = useState<string | 'all'>('all');
-  const [filterStatusConnection, setFilterStatusConnection] = useState<string | 'all'>('all');
+
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const dispatch: AppDispatch = useDispatch();
-  const devices = useSelector((state: RootState) => state.devices);
-
-  const showModal = (useService: string[]) => {
-    setModalContent(useService);
-    setModalVisible(true);
-  };
+  const services = useSelector((state: RootState) => state.services);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -38,10 +34,15 @@ const ServicePage: React.FC = () => {
     console.log(idDevice);
   };
 
-  const columns: ColumnsType<Device> = [
+  const updatedServices = services.map((service) => {
+    const randomValue = Math.random();
+    const statusOperation = randomValue < 0.5 ? 'Hoạt động' : 'Ngưng hoạt động';
+    return { ...service, statusOperation };
+  });
+  const columns: ColumnsType<Service> = [
     {
       title: 'Mã dịch vụ',
-      dataIndex: 'idSẻvice',
+      dataIndex: 'id',
       width: '7vw',
     },
     {
@@ -51,11 +52,11 @@ const ServicePage: React.FC = () => {
     },
     {
       title: 'Mô tả',
-      dataIndex: 'descriptionService',
+      dataIndex: 'describeService',
       width: '15vw',
     },
     {
-      title: 'Trạng Hoạt Động',
+      title: 'Trạng thái hoạt động',
       dataIndex: 'statusOperation',
       width: '15vw',
       render: (text) => (
@@ -88,7 +89,7 @@ const ServicePage: React.FC = () => {
     },
   ];
 
-  const filteredData = devices.filter((item) => {
+  const filteredData = services.filter((item) => {
     const operationCondition = filterStatusOperation === 'all' || item.statusOperation === filterStatusOperation;
 
     return (
@@ -99,8 +100,9 @@ const ServicePage: React.FC = () => {
           .some((value) => value.includes(searchKeyword.toLowerCase())))
     );
   });
+
   useEffect(() => {
-    dispatch(fetchDevices());
+    dispatch(fetchSevices());
   }, [dispatch]);
   return (
     <Content>
@@ -110,7 +112,7 @@ const ServicePage: React.FC = () => {
       <Form layout='inline'>
         <Form.Item className='device-select'>
           <p className='device-text-title'>Trạng thái hoạt động</p>
-          <Select size='large' defaultValue='all' onChange={(value: string) => setFilterStatusOperation(value)}>
+          <Select size='large' value={filterStatusOperation} onChange={(value: string) => setFilterStatusOperation(value)}>
             <Option value='all'>Tất cả</Option>
             <Option value='Hoạt động'>Hoạt động</Option>
             <Option value='Ngưng hoạt động'>Ngưng hoạt động</Option>
@@ -129,11 +131,15 @@ const ServicePage: React.FC = () => {
         <Col span={22}>
           <Table columns={columns} dataSource={filteredData} />
         </Col>
-        <Col span={1} offset={1} onClick={() => navigate(`/service/add-service`)}>
-          <div className='device-add-layout'>
-            <PlusSquareFilled className='device-add-icon' />
-            <p className='device-add-text'>Thêm thiết bị</p>
-          </div>
+        <Col span={1} style={{ marginLeft: '1%' }} onClick={() => navigate(`/service/add`)}>
+          <button className='square-button' style={{ width: '82px' }}>
+            <div>
+              <PlusSquareFilled className='square-button-icon' />
+            </div>
+            <div>
+              <p className='square-button-text'>Thêm thiết bị</p>
+            </div>
+          </button>
         </Col>
       </Row>
 
