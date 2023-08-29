@@ -18,14 +18,14 @@ interface Option {
 const AddDevice = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const statusOperationRD = Math.random() < 0.5 ? 'Hoạt động' : 'Ngưng hoạt động';
-  const statusConectionRD = Math.random() < 0.5 ? 'Kết nối' : 'Mất kết nối';
+  const statusOperation = Math.random() < 0.5 ? 'Ngưng hoạt động' : 'Hoạt động';
+  const statusConection = Math.random() < 0.33 ? 'Mất kết nối' : 'Kết nối';
   const [newDevice, setNewDevice] = useState<Device>({
     id: '',
     nameDevice: '',
     IPAddress: '',
-    statusOperation: `${statusOperationRD}`,
-    statusConection: `${statusConectionRD}`,
+    statusOperation: `${statusOperation}`,
+    statusConection: `${statusConection}`,
     useService: [],
     typeDevice: '',
     usernameDevice: '',
@@ -33,28 +33,27 @@ const AddDevice = () => {
   });
 
   const handleAddDevice = async () => {
-    const messageConfig = {
-      warning: { message: 'Cảnh báo', description: '' },
-      success: { message: 'Thành công', description: '' },
-      error: { message: 'Lỗi', description: 'Mã thiết bị đã có trong hệ thống' },
-    };
-
     try {
-      if (!newDevice.idDevice || !newDevice.nameDevice || !newDevice.IPAddress || !newDevice.typeDevice) {
+      if (!newDevice.id || !newDevice.nameDevice || !newDevice.IPAddress || !newDevice.typeDevice) {
         notification.warning({
           message: 'Cảnh báo',
           description: 'Bạn chưa điền đầy đủ thông tin',
         });
       } else {
         await dispatch(addDevice(newDevice));
-        messageConfig.success.description = 'Thêm thiết bị thành công.';
-
+        notification.success({
+          message: 'Thành công',
+          description: 'Thêm thiết bị thành công.',
+        });
+        console.log('Device added successfully.');
         navigate(`/device`);
       }
-      notification[messageConfig.warning.description ? 'warning' : 'success'](messageConfig.warning);
     } catch (error) {
-      notification.error(messageConfig.error);
-      console.log(error);
+      notification.warning({
+        message: 'Lỗi',
+        description: 'Mã thiết bị đã có trong hệ thống',
+      });
+      console.log('Error adding device:');
     }
   };
   const handleInputChange = (field: keyof Device, value: string) => {
@@ -100,14 +99,9 @@ const AddDevice = () => {
   return (
     <Content>
       <div>
-        <p className='device-text-header'>Quản lý thiết bị</p>
+        <p className='device-text-header'>Thêm thiết bị</p>
       </div>
-      <div className='profile'>
-        <div>
-          <p className='device-text-header' style={{ marginTop: '0' }}>
-            Thông tin thiết bị
-          </p>
-        </div>
+      <div className='inline'>
         <Row>
           <Col span={11}>
             <Form layout='vertical'>

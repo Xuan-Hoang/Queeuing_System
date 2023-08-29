@@ -12,6 +12,7 @@ import { Content } from 'antd/es/layout/layout';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { fetchNumberLevel } from '../../redux/slice/numberLevel/numberLevelSilce';
 import { NumberLevel } from '../../types/NumberLevel';
+import { format } from 'date-fns';
 
 const NumberLevelPage: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +22,11 @@ const NumberLevelPage: React.FC = () => {
   const [filterNameService, setFilterNameService] = useState<string | 'all'>('all');
   const [filterSourceSevice, setFilterSourceSevice] = useState<string | 'all'>('all');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+
   const dispatch: AppDispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchNumberLevel());
+  }, [dispatch]);
   const numberLevels = useSelector((state: RootState) => state.numberLevels);
 
   const closeModal = () => {
@@ -38,6 +43,11 @@ const NumberLevelPage: React.FC = () => {
       title: 'STT',
       dataIndex: 'numberOrder',
       width: '',
+      sorter: (a, b) => {
+        const numA = a.numberOrder.toString();
+        const numB = b.numberOrder.toString();
+        return numA.localeCompare(numB, undefined, { numeric: true, sensitivity: 'base' });
+      },
     },
     {
       title: 'Tên khách hàng',
@@ -53,27 +63,18 @@ const NumberLevelPage: React.FC = () => {
       title: 'Thời gian cấp',
       dataIndex: 'issuanceDate',
       width: '',
-      render: (issuanceDate) => {
-        const date = issuanceDate.toDate();
-        console.log(issuanceDate);
-        return (
-          <span>
-            {date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })} - {date.toLocaleDateString()}
-          </span>
-        );
+      render: (issuanceDate: any) => {
+        const formattedIssuanceDate = issuanceDate ? format(new Date(issuanceDate.toDate()), 'HH:mm dd/MM/yyyy') : '';
+        return <span>{formattedIssuanceDate}</span>;
       },
     },
     {
       title: 'Hạn sử dụng',
       dataIndex: 'expiryDate',
       width: '',
-      render: (expiryDate) => {
-        const date = expiryDate.toDate();
-        return (
-          <span>
-            {date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })} - {date.toLocaleDateString()}
-          </span>
-        );
+      render: (expiryDate: any) => {
+        const formattedExpiryDate = expiryDate ? format(new Date(expiryDate.toDate()), 'HH:mm dd/MM/yyyy') : '';
+        return <span>{formattedExpiryDate}</span>;
       },
     },
 
@@ -118,9 +119,8 @@ const NumberLevelPage: React.FC = () => {
           .some((value) => value.includes(searchKeyword.toLowerCase())))
     );
   });
-  useEffect(() => {
-    dispatch(fetchNumberLevel());
-  }, [dispatch]);
+  // const limitedData = filteredData.slice(0, 5);
+
   return (
     <Content>
       <div>
@@ -167,8 +167,7 @@ const NumberLevelPage: React.FC = () => {
       <br />
       <Row>
         <Col span={22}>
-          {/*  */}
-          <Table columns={columns} dataSource={filteredData} />
+          <Table columns={columns} dataSource={filteredData} pagination={{ pageSize: 6 }} />
         </Col>
         <Col span={1} style={{ marginLeft: '1%' }} onClick={() => navigate(`/number_level/add`)}>
           <button className='square-button' style={{ width: '82px' }}>

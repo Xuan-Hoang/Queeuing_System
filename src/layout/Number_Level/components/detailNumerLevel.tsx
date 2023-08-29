@@ -21,7 +21,9 @@ const DetailNumberLevel = () => {
   }, [dispatch]);
 
   const deltailNumberLevel = numberLevels.find((numberLevel) => numberLevel.id === id);
+  const formattedIssuanceDate = deltailNumberLevel?.issuanceDate ? format(new Date(deltailNumberLevel?.issuanceDate.toDate()), 'HH:mm dd/MM/yyyy') : '';
 
+  const formattedExpiryDate = deltailNumberLevel?.expiryDate ? format(new Date(deltailNumberLevel?.expiryDate.toDate()), 'HH:mm dd/MM/yyyy') : '';
   return (
     <Content>
       <div>
@@ -49,6 +51,8 @@ const DetailNumberLevel = () => {
                     <p>{deltailNumberLevel?.customer}</p>
                     <p>{deltailNumberLevel?.service}</p>
                     <p>{deltailNumberLevel?.numberOrder}</p>
+                    <p>{formattedIssuanceDate}</p>
+                    <p>{formattedExpiryDate}</p>
                   </Col>
                 </Row>
               </Col>

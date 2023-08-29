@@ -91,7 +91,7 @@ const HeaderPage = () => {
 
   if (!user) {
     return (
-      <Header className='header' style={{ backgroundColor: 'white' }}>
+      <Header className='header'>
         <Row justify='center' align='middle'>
           <Col span={18}>
             <p className='header-title'>{pContent}</p>

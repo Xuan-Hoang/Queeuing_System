@@ -129,7 +129,7 @@ const ServicePage: React.FC = () => {
       <br />
       <Row>
         <Col span={22}>
-          <Table columns={columns} dataSource={filteredData} />
+          <Table columns={columns} dataSource={filteredData} pagination={{ pageSize: 6 }} />
         </Col>
         <Col span={1} style={{ marginLeft: '1%' }} onClick={() => navigate(`/service/add`)}>
           <button className='square-button' style={{ width: '82px' }}>

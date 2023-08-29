@@ -52,12 +52,12 @@ const DeviceTable: React.FC = () => {
     {
       title: 'Địa chỉ IP',
       dataIndex: 'IPAddress',
-      width: '9vw',
+      width: '10vw',
     },
     {
       title: 'Trạng thái hoạt động',
       dataIndex: 'statusOperation',
-      width: '13vw',
+      width: '14vw',
       render: (text) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <DotStatus status={text} />
@@ -68,7 +68,7 @@ const DeviceTable: React.FC = () => {
     {
       title: 'Trạng thái kết nối',
       dataIndex: 'statusConection',
-      width: '11vw',
+      width: '12vw',
       render: (text) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <DotStatus status={text} />
@@ -79,7 +79,7 @@ const DeviceTable: React.FC = () => {
     {
       title: 'Dịch vụ sử dụng',
       dataIndex: 'useService',
-      width: '22vw',
+      width: '23vw',
       render: (text) => (
         <div style={{ lineHeight: '1' }}>
           {text.slice(0, 2).join(', ')}
@@ -95,7 +95,7 @@ const DeviceTable: React.FC = () => {
     {
       title: ' ',
       dataIndex: 'detail',
-      width: '6vw',
+      width: '7vw',
       render: (_, record) => (
         <NavLink to={`/device/detail`} onClick={() => handDetail(record.id)}>
           Chi tiết
@@ -107,7 +107,7 @@ const DeviceTable: React.FC = () => {
       dataIndex: 'update',
       width: '7vw',
       render: (_, record) => (
-        <NavLink to={`/device/update`} onClick={() => handDetail(record.idDevice)}>
+        <NavLink to={`/device/update`} onClick={() => handDetail(record.id)}>
           Update
         </NavLink>
       ),
@@ -163,7 +163,7 @@ const DeviceTable: React.FC = () => {
       <br />
       <Row>
         <Col span={22}>
-          <Table columns={columns} dataSource={filteredData} />
+          <Table columns={columns} dataSource={filteredData} pagination={{ pageSize: 6 }} />
         </Col>
         <Col span={1} style={{ marginLeft: '1%' }} onClick={() => navigate(`/device/add`)}>
           <button className='square-button' style={{ width: '82px' }}>
@@ -177,8 +177,8 @@ const DeviceTable: React.FC = () => {
         </Col>
       </Row>
 
-      <Modal visible={modalVisible} onCancel={closeModal} footer={null} width={600} style={{ marginTop: '10%' }}>
-        <div style={{ padding: '3%' }}>{modalContent.join(', ')}</div>
+      <Modal visible={modalVisible} onCancel={closeModal} footer={null} width={600}>
+        {modalContent.join(', ')}
       </Modal>
     </Content>
   );
