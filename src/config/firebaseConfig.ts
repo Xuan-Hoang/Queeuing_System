@@ -3,13 +3,13 @@ import 'firebase/firestore';
 import 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAnyo_jNqdKgQ3ogWUETIJHci_Fl2-yJYo',
-  authDomain: 'queuing-system-cbbbe.firebaseapp.com',
-  projectId: 'queuing-system-cbbbe',
-  storageBucket: 'queuing-system-cbbbe.appspot.com',
-  messagingSenderId: '19421573956',
-  appId: '1:19421573956:web:2dee2e075478570f269d11',
-  measurementId: 'G-VLR3JDNHD1',
+  apiKey: 'AIzaSyBUG8F-6AHy_hZBnXSU5jl2F8qmJZ8J1C8',
+  authDomain: 'queuing-system-6504c.firebaseapp.com',
+  projectId: 'queuing-system-6504c',
+  storageBucket: 'queuing-system-6504c.appspot.com',
+  messagingSenderId: '1032393352508',
+  appId: '1:1032393352508:web:5a78b5997d651b45182a39',
+  measurementId: 'G-GJPBBX3DHP',
 };
 
 // Initialize Firebase

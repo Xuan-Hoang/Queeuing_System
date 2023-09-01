@@ -4,7 +4,7 @@
   background-color: var(--bg, #f6f6f6);
 }
 .login-content {
-  width: 60vw;
+  width: 55vw;
   background-color: var(--white, #fff);
   text-align: start;
 }

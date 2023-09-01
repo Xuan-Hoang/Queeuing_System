@@ -8,6 +8,8 @@ import { AppDispatch } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { fetchLogoData, selectLogo } from '../../redux/slice/logo/logoSlice';
+import { History } from '../../types/historyType';
+import { addHistorys } from '../../redux/slice/Setting/historySlice';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -35,6 +37,7 @@ const Login: React.FC = () => {
       document.removeEventListener('click', handleGlobalClick);
     };
   }, [showNotification, showNotification2, showNotification3]);
+
   // Login
   const handleLogin = async () => {
     if (!username || !password) {
@@ -45,8 +48,10 @@ const Login: React.FC = () => {
     if (success !== '') {
       setShowNotification3(true);
       localStorage.setItem('username', success);
+
+      await dispatch(addHistorys(newHistory));
       setTimeout(() => {
-        navigate('profile');
+        navigate('/profile');
       }, 600);
     } else {
       setShowNotification(true);
@@ -60,6 +65,15 @@ const Login: React.FC = () => {
     username: string;
     password: string;
   };
+  const nameHistory = localStorage.getItem('username') || '';
+  const [newHistory] = useState<History>({
+    username: nameHistory,
+    date: new Date(),
+    IP: '192.168.1.1',
+    action: 'Người dùng đăng nhập',
+    userLogin: nameHistory,
+    dateLogin: new Date(),
+  });
 
   return (
     <Layout hasSider style={{ height: '100vh', width: '100%' }}>

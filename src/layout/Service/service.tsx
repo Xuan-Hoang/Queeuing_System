@@ -30,7 +30,7 @@ const ServicePage: React.FC = () => {
     setModalContent([]);
   };
   const handDetail = (idDevice: string) => {
-    localStorage.setItem('idDevice', idDevice);
+    localStorage.setItem('idService', idDevice);
     console.log(idDevice);
   };
 

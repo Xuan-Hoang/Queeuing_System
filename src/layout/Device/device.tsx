@@ -178,7 +178,7 @@ const DeviceTable: React.FC = () => {
       </Row>
 
       <Modal visible={modalVisible} onCancel={closeModal} footer={null} width={600}>
-        {modalContent.join(', ')}
+        <div style={{ padding: '4%' }}> {modalContent.join(', ')}</div>
       </Modal>
     </Content>
   );

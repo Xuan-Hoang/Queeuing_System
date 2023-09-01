@@ -5,9 +5,10 @@ import { AppDispatch } from '../../../redux/store';
 import { useDispatch } from 'react-redux';
 import { addDevice } from '../../../redux/slice/device/deviceSlice';
 import { Device } from '../../../types/deviceType';
-
 import { Option } from 'antd/es/mentions';
 import { useNavigate } from 'react-router-dom';
+import { History } from '../../../types/historyType';
+import { addHistorys } from '../../../redux/slice/Setting/historySlice';
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 interface Option {
@@ -16,8 +17,9 @@ interface Option {
   children?: Option[];
 }
 const AddDevice = () => {
-  const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const nameHistory = localStorage.getItem('username') || '';
   const statusOperation = Math.random() < 0.5 ? 'Ngưng hoạt động' : 'Hoạt động';
   const statusConection = Math.random() < 0.33 ? 'Mất kết nối' : 'Kết nối';
   const [newDevice, setNewDevice] = useState<Device>({
@@ -31,7 +33,14 @@ const AddDevice = () => {
     usernameDevice: '',
     passwordDevice: '',
   });
-
+  const [newHistory] = useState<History>({
+    username: nameHistory,
+    date: new Date(),
+    IP: '192.168.3.1',
+    action: `Thêm thiết bị`,
+    userLogin: '',
+    dateLogin: '',
+  });
   const handleAddDevice = async () => {
     try {
       if (!newDevice.id || !newDevice.nameDevice || !newDevice.IPAddress || !newDevice.typeDevice) {
@@ -41,6 +50,7 @@ const AddDevice = () => {
         });
       } else {
         await dispatch(addDevice(newDevice));
+        await dispatch(addHistorys(newHistory));
         notification.success({
           message: 'Thành công',
           description: 'Thêm thiết bị thành công.',

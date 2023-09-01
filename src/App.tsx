@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import './App.css';
 import Login from './layout/Login/login';
 import ForgotPassword from './layout/Login/forgotPassword/forgot_password';
@@ -22,6 +22,14 @@ import AddNumberLevel from './layout/Number_Level/components/addNumberLevel';
 import DashboardPage from './layout/Dashboard/dashboard';
 import NumberLevelPage from './layout/Number_Level/number-level';
 import DetailNumberLevel from './layout/Number_Level/components/detailNumerLevel';
+import ReportPage from './layout/Report/Report';
+import RolePage from './layout/Setting/Role/role';
+import UpdateRole from './layout/Setting/Role/components/updateRole';
+import AddRole from './layout/Setting/Role/components/addRole';
+import AccountPage from './layout/Setting/Account/account';
+import AddAccount from './layout/Setting/Account/components/addAccount';
+import UpdateAccount from './layout/Setting/Account/components/updateAccount';
+import HistoryPage from './layout/Setting/History/history';
 
 function App() {
   return (
@@ -50,6 +58,14 @@ function App() {
                   <Route path='/number_level' element={<NumberLevelPage />} />
                   <Route path='/number_level/add' element={<AddNumberLevel />} />
                   <Route path='number_level/detail' element={<DetailNumberLevel />} />
+                  <Route path='/report' element={<ReportPage />} />
+                  <Route path='/role' element={<RolePage />} />
+                  <Route path='/role/update' element={<UpdateRole />} />
+                  <Route path='/role/add' element={<AddRole />} />
+                  <Route path='/account' element={<AccountPage />} />
+                  <Route path='/account/add' element={<AddAccount />} />
+                  <Route path='/account/update' element={<UpdateAccount />} />
+                  <Route path='/history' element={<HistoryPage />} />
                 </Routes>
               </LayoutRoute>
             }

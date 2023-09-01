@@ -4,17 +4,23 @@ import userReducer from './slice/login/loginSlice';
 import logoReducer from './slice/logo/logoSlice';
 import devicesReducer from './slice/device/deviceSlice';
 import servicesReducer from './slice/service/serviceSlice';
+import rolesReducer from './slice/Setting/rolesSlice';
 import numberLevelsReducer from './slice/numberLevel/numberLevelSilce';
+import accountsReducer from './slice/Setting/accountSlice';
 import { Dispatch } from 'react';
+import historySlice from './slice/Setting/historySlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    user: userReducer,
+    // user: userReducer,
     logo: logoReducer,
+    roles: rolesReducer,
     devices: devicesReducer,
     services: servicesReducer,
+    accounts: accountsReducer,
     numberLevels: numberLevelsReducer,
+    historys: historySlice,
   },
 });
 

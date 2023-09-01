@@ -7,6 +7,8 @@ import { Device } from '../../../types/deviceType';
 import { Option } from 'antd/es/mentions';
 import { useNavigate } from 'react-router-dom';
 import { fetchDevices, updateDevice } from '../../../redux/slice/device/deviceSlice';
+import { addHistorys, fetchHistorys } from '../../../redux/slice/Setting/historySlice';
+import { History } from '../../../types/historyType';
 
 interface Option {
   value: string;
@@ -18,7 +20,9 @@ const UpdateDevice = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const devices = useSelector((state: RootState) => state.devices);
+  const historys = useSelector((state: RootState) => state.historys);
   const id = localStorage.getItem('id') || '';
+  const nameHistory = localStorage.getItem('username') || '';
   useEffect(() => {
     dispatch(fetchDevices());
   }, [dispatch]);
@@ -36,15 +40,30 @@ const UpdateDevice = () => {
 
   useEffect(() => {
     const selectedDevice = devices.find((device) => device.id === id);
+
     if (selectedDevice) {
       setUpdatedDevice(selectedDevice);
       setUpdatedDevice({ ...selectedDevice });
     }
   }, [devices, id]);
 
+  useEffect(() => {
+    dispatch(fetchHistorys());
+  }, [dispatch]);
+
+  const [newHistory] = useState<History>({
+    username: nameHistory,
+    date: new Date(),
+    IP: '192.168.3.1',
+    action: `Cập nhật thông tin thiết bị ${id}`,
+    userLogin: '',
+    dateLogin: new Date(),
+  });
+
   const handleUpdateDevice = () => {
     if (updatedDevice && id) {
-      dispatch(updateDevice(id, updatedDevice))
+      dispatch(updateDevice(id, updatedDevice));
+      dispatch(addHistorys(newHistory))
         .then(() => {
           navigate('/device');
         })
@@ -160,7 +179,7 @@ const UpdateDevice = () => {
             Hủy bỏ
           </Button>
           <Button className='addDevice-submit' type='primary' style={{ background: 'var(--orange-orange-400, #ff9138)' }} onClick={handleUpdateDevice}>
-            Tiếp tục
+            Cập nhật
           </Button>
         </Col>
       </div>

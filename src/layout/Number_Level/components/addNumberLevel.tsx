@@ -7,6 +7,8 @@ import { AppDispatch } from '../../../redux/store';
 import { useDispatch } from 'react-redux';
 import { addNumberLevel } from '../../../redux/slice/numberLevel/numberLevelSilce';
 import { firestore } from '../../../config/firebaseConfig';
+import { History } from '../../../types/historyType';
+import { addHistorys } from '../../../redux/slice/Setting/historySlice';
 
 const AddNumberLevel = () => {
   const navigate = useNavigate();
@@ -34,22 +36,39 @@ const AddNumberLevel = () => {
   };
   const source = Math.random() < 0.5 ? 'Hệ thống' : 'Kiosk';
   const status = Math.random() < 0.33 ? 'Đang chờ' : Math.random() < 0.66 ? 'Đã sử dụng' : 'Bỏ qua';
+
+  const nameHistory = localStorage.getItem('username') || '';
+  const [newHistory] = useState<History>({
+    username: nameHistory,
+    date: new Date(),
+    IP: '192.168.3.1',
+    action: `Thêm cấp số mới`,
+    userLogin: '',
+    dateLogin: '',
+  });
+
   const handleAllocateNumber = async () => {
     const messageConfig = {
       warning: { message: 'Cảnh báo', description: '' },
     };
     const numberLevelsRef = firestore.collection('NumberLevel');
-    const querySnapshot = await numberLevelsRef.orderBy('numberOrder', 'desc').limit(1).get();
+    const querySnapshot = await numberLevelsRef.orderBy('issuanceDate', 'desc').limit(1).get();
+
     let newNumber = 1;
-    if (!querySnapshot.empty) {
-      const lastNumberLevel = querySnapshot.docs[0].data();
-      newNumber = lastNumberLevel.numberOrder + 1;
-    }
 
     if (!querySnapshot.empty) {
       const lastNumberLevel = querySnapshot.docs[0].data();
-      newNumber = lastNumberLevel.numberOrder + 1;
+      const lastIssuanceDate = lastNumberLevel.issuanceDate.toDate();
+      const currentDate = new Date();
+      if (
+        currentDate.getFullYear() === lastIssuanceDate.getFullYear() &&
+        currentDate.getMonth() === lastIssuanceDate.getMonth() &&
+        currentDate.getDate() === lastIssuanceDate.getDate()
+      ) {
+        newNumber = lastNumberLevel.numberOrder + 1;
+      }
     }
+
     const newNumberLevel = {
       id: newNumber.toString(),
       numberOrder: newNumber,
@@ -61,17 +80,21 @@ const AddNumberLevel = () => {
       source: source,
       email: 'hoangdx@gmail.com',
     };
+
     if (!newNumberLevel.service) {
       messageConfig.warning.description = 'Vui lòng chọn dịch vụ cần in số';
     } else {
       setCount(newNumber);
       setShowModal(true);
       await dispatch(addNumberLevel(newNumberLevel));
+      await dispatch(addHistorys(newHistory));
     }
+
     if (messageConfig.warning.description) {
       notification['warning'](messageConfig.warning);
     }
   };
+
   const getEndOfDay = (date: Date) => {
     const endOfDay = new Date(date);
     endOfDay.setHours(17, 0, 0, 0);

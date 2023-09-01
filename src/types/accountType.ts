@@ -1,6 +1,6 @@
 export interface Account {
   id: string;
-  avata: string;
+  avatar: string;
   fullName: string;
   phoneNumber: number;
   email: string;

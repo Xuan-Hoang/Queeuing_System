@@ -19,7 +19,7 @@ const DetaiService = () => {
     dispatch(fetchSevices());
   }, [dispatch]);
   const detailService = services.find((services) => services.id === id);
-
+  console.log(detailService);
   const columns: ColumnsType<Service> = [
     {
       title: 'Số thứ tự',

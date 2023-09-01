@@ -3,11 +3,13 @@ import TextArea from 'antd/es/input/TextArea';
 import { Content } from 'antd/es/layout/layout';
 import '../../../assets/css/service.css';
 import { useNavigate } from 'react-router-dom';
-import { AppDispatch } from '../../../redux/store';
-import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
 import { Service } from '../../../types/serviceType';
 import React, { useEffect, useState } from 'react';
 import { addService } from '../../../redux/slice/service/serviceSlice';
+import { History } from '../../../types/historyType';
+import { addHistorys } from '../../../redux/slice/Setting/historySlice';
 const AddService = () => {
   const navigate = useNavigate();
 
@@ -23,6 +25,17 @@ const AddService = () => {
     numericalOrder: ``,
     status: `${randomStatus}`,
   });
+  const historys = useSelector((state: RootState) => state.historys);
+  const nameHistory = localStorage.getItem('username') || '';
+  const [newHistory] = useState<History>({
+    username: nameHistory,
+    date: new Date(),
+    IP: '192.168.3.1',
+    action: `Thêm dịch vụ`,
+    userLogin: '',
+    dateLogin: new Date(),
+  });
+
   const handleAddService = async () => {
     const messageConfig = {
       warning: { message: 'Cảnh báo', description: '' },
@@ -45,6 +58,7 @@ const AddService = () => {
         });
       } else {
         await dispatch(addService(newService));
+        dispatch(addHistorys(newHistory));
         messageConfig.success.description = 'Thêm thiết bị thành công.';
         navigate(`/service`);
         notification.success(messageConfig.success);
@@ -80,7 +94,6 @@ const AddService = () => {
         numericalOrder: prefix + randomNumericalOrder,
       }));
     } else if (!isSurfixChecked) {
-      // Nếu Prefix không được chọn và không có Surfix, set lại numericalOrder với giá trị ngẫu nhiên
       setNewService((prevService) => ({
         ...prevService,
         numericalOrder: generateRandomNumber(),
@@ -98,7 +111,6 @@ const AddService = () => {
         numericalOrder: randomNumericalOrder + surfix,
       }));
     } else if (!isPrefixChecked) {
-      // Nếu Surfix không được chọn và không có Prefix, set lại numericalOrder với giá trị ngẫu nhiên
       setNewService((prevService) => ({
         ...prevService,
         numericalOrder: generateRandomNumber(),

@@ -53,7 +53,7 @@ export const addService = (newService: Service) => async (dispatch: AppDispatch,
 export const updateService = (serviceId: string, updatedService: Service) => async (dispatch: AppDispatch, getState: () => RootState) => {
   try {
     const servicesRef = firestore.collection('Service').doc(serviceId);
-    await servicesRef.update(updateService);
+    await servicesRef.update(updatedService);
     return true;
   } catch (error) {
     console.error('Error updating device:', error);

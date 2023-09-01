@@ -8,6 +8,8 @@ import { AppDispatch, RootState } from '../../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSevices, updateService } from '../../../redux/slice/service/serviceSlice';
 import { Service } from '../../../types/serviceType';
+import { History } from '../../../types/historyType';
+import { addHistorys } from '../../../redux/slice/Setting/historySlice';
 const UpdateSevice = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
@@ -27,6 +29,17 @@ const UpdateSevice = () => {
     status: '',
   });
 
+  const historys = useSelector((state: RootState) => state.historys);
+  const nameHistory = localStorage.getItem('username') || '';
+  const [newHistory] = useState<History>({
+    username: nameHistory,
+    date: new Date(),
+    IP: '192.168.3.1',
+    action: `Cập nhật dịch vụ ${updatedService?.nameService}`,
+    userLogin: '',
+    dateLogin: new Date(),
+  });
+
   useEffect(() => {
     const selectedService = services.find((service) => service.id === id);
     if (selectedService) {
@@ -37,12 +50,13 @@ const UpdateSevice = () => {
 
   const handleUpdateService = () => {
     if (updatedService && id) {
-      dispatch(updateService(id, updatedService))
+      dispatch(updateService(id, updatedService));
+      dispatch(addHistorys(newHistory))
         .then(() => {
-          navigate('/device');
+          navigate('/service');
         })
         .catch((error) => {
-          console.error('Error updating device:', error);
+          console.error('Error updating :', error);
         });
     }
   };
@@ -109,8 +123,13 @@ const UpdateSevice = () => {
               <Form.Item label='Mã dịch vụ:'>
                 <Input placeholder='Nhập mã thiết bị' value={updatedService?.id || ''} name='id' onChange={(e) => handleInputChange('id', e.target.value)} />
               </Form.Item>
-              <Form.Item label='Tên dịch vụ:' name='nameService' rules={[{ required: true, message: '' }]}>
-                <Input />
+              <Form.Item label='Tên dịch vụ:'>
+                <Input
+                  placeholder='Nhập Tên dịch vụ'
+                  value={updatedService?.nameService || ''}
+                  name='nameService'
+                  onChange={(e) => handleInputChange('nameService', e.target.value)}
+                />
               </Form.Item>
             </Form>
           </Col>
@@ -118,10 +137,10 @@ const UpdateSevice = () => {
             <Form layout='vertical'>
               <Form.Item label='Mô tả: ' rules={[{ required: true, message: '' }]}>
                 <TextArea
-                  placeholder='Nhập mã thiết bị'
-                  value={updatedService?.nameService || ''}
-                  name='nameService'
-                  onChange={(e) => handleInputChange('nameService', e.target.value)}
+                  placeholder='Mô tả'
+                  value={updatedService?.describeService || ''}
+                  name='describeService'
+                  onChange={(e) => handleInputChange('describeService', e.target.value)}
                   rows={4}
                 />
               </Form.Item>
@@ -175,7 +194,7 @@ const UpdateSevice = () => {
         <Button style={{ background: 'var(--orange-orange-50, #FFF2E7)' }} className='addDevice-submit' onClick={(e) => navigate(`/device`)}>
           Hủy bỏ
         </Button>
-        <Button className='addDevice-submit' type='primary' style={{ background: 'var(--orange-orange-400, #ff9138)' }}>
+        <Button onClick={handleUpdateService} className='addDevice-submit' type='primary' style={{ background: 'var(--orange-orange-400, #ff9138)' }}>
           Tiếp tục
         </Button>
       </div>

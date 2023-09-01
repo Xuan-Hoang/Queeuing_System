@@ -29,7 +29,7 @@ export default logoSlice.reducer;
 export const selectLogo = (state: RootState) => state.logo;
 export const fetchLogoData = (): AppThunk => async (dispatch) => {
   try {
-    const docRef = firestore.collection('logo').doc('urqD3DjswAVRthjcII1h');
+    const docRef = firestore.collection('Logo').doc('urqD3DjswAVRthjcII1h');
     const doc = await docRef.get();
 
     if (doc.exists) {

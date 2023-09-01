@@ -36,8 +36,9 @@ export const fetchNumberLevel = () => async (dispatch: AppDispatch) => {
 
 export const addNumberLevel = (newNumberLevel: NumberLevel) => async (dispatch: AppDispatch, getState: () => RootState) => {
   try {
-    const devicesRef = firestore.collection('NumberLevel').doc(newNumberLevel.id);
-    await devicesRef.set(newNumberLevel);
+    const numberLevelsRef = firestore.collection('NumberLevel');
+    await numberLevelsRef.add(newNumberLevel);
+
     return true;
   } catch (error) {
     console.error('Error adding device:', error);

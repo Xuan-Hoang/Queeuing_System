@@ -12,6 +12,10 @@ import device from '../../assets/icon/device.svg';
 import { Calendar, Typography } from 'antd';
 import { Dayjs } from 'dayjs';
 import { fetchDevices } from '../../redux/slice/device/deviceSlice';
+import status1 from '../../assets/icon/Dashboard/status1.svg';
+import status2 from '../../assets/icon/Dashboard/status2.svg';
+import status3 from '../../assets/icon/Dashboard/status3.svg';
+import status4 from '../../assets/icon/Dashboard/status4.svg';
 const divStyle = {
   backgroundColor: 'rgba(102, 149, 251, 0.2)',
   borderRadius: '50%',
@@ -91,7 +95,7 @@ const DashboardPage = () => {
                   <div className='profile' style={{ padding: '5%' }}>
                     <div style={{ display: 'flex' }}>
                       <div style={divStyle}>
-                        <CalendarTwoTone style={iconStyle} />
+                        <img src={status1} alt='' />
                       </div>
                       <p style={{ margin: '0', marginLeft: '5%', fontSize: '16px', fontWeight: '500', width: '50%' }}>Số thứ tự đã cấp</p>
                     </div>
@@ -104,7 +108,7 @@ const DashboardPage = () => {
                   <div className='profile' style={{ padding: '5%' }}>
                     <div style={{ display: 'flex' }}>
                       <div style={divStyle}>
-                        <CalendarTwoTone style={iconStyle} />
+                        <img src={status2} alt='' />
                       </div>
                       <p style={{ margin: '0', marginLeft: '5%', fontSize: '16px', fontWeight: '500', width: '50%' }}>Số thứ tự đã sử dụng</p>
                     </div>
@@ -117,7 +121,7 @@ const DashboardPage = () => {
                   <div className='profile' style={{ padding: '5%' }}>
                     <div style={{ display: 'flex' }}>
                       <div style={divStyle}>
-                        <CalendarTwoTone style={iconStyle} />
+                        <img src={status3} alt='' />
                       </div>
                       <p style={{ margin: '0', marginLeft: '5%', fontSize: '16px', fontWeight: '500', width: '50%' }}>Số thứ tự đang chờ</p>
                     </div>
@@ -130,7 +134,7 @@ const DashboardPage = () => {
                   <div className='profile' style={{ padding: '5%' }}>
                     <div style={{ display: 'flex' }}>
                       <div style={divStyle}>
-                        <CalendarTwoTone style={iconStyle} />
+                        <img src={status4} alt='' />
                       </div>
                       <p style={{ margin: '0', marginLeft: '5%', fontSize: '16px', fontWeight: '500', width: '50%' }}>Số thứ tự đã bỏ qua</p>
                     </div>

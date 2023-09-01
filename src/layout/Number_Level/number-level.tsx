@@ -74,6 +74,7 @@ const NumberLevelPage: React.FC = () => {
       width: '',
       render: (expiryDate: any) => {
         const formattedExpiryDate = expiryDate ? format(new Date(expiryDate.toDate()), 'HH:mm dd/MM/yyyy') : '';
+
         return <span>{formattedExpiryDate}</span>;
       },
     },
@@ -135,7 +136,7 @@ const NumberLevelPage: React.FC = () => {
             <Option value='Khám sản - Phụ khoa'>Khám sản - Phụ khoa</Option>
             <Option value='Khám răng hàm mặ'>Khám răng hàm mặt</Option>
             <Option value='Khám tai mũi họng'>Khám tai mũi họng</Option>
-            Khám hô hấp
+            <Option value='Khám hô hấp'> Khám hô hấp</Option>
           </Select>
         </Form.Item>
         <Form.Item className='number_level-select'>
