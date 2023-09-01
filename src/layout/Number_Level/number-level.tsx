@@ -21,6 +21,7 @@ const NumberLevelPage: React.FC = () => {
   const [filterStatusOperation, setFilterStatusOperation] = useState<string | 'all'>('all');
   const [filterNameService, setFilterNameService] = useState<string | 'all'>('all');
   const [filterSourceSevice, setFilterSourceSevice] = useState<string | 'all'>('all');
+
   const [searchKeyword, setSearchKeyword] = useState<string>('');
 
   const dispatch: AppDispatch = useDispatch();
@@ -110,17 +111,17 @@ const NumberLevelPage: React.FC = () => {
   const filteredData = numberLevels.filter((item) => {
     const nameCondition = filterNameService === 'all' || item.service === filterNameService;
     const operationCondition = filterStatusOperation === 'all' || item.status === filterStatusOperation;
-
+    const sourceCondition = filterStatusOperation === 'all' || item.source === filterStatusOperation;
     return (
       nameCondition &&
       operationCondition &&
+      sourceCondition &&
       (searchKeyword === '' ||
         Object.values(item)
           .map((value) => String(value).toLowerCase())
           .some((value) => value.includes(searchKeyword.toLowerCase())))
     );
   });
-  // const limitedData = filteredData.slice(0, 5);
 
   return (
     <Content>
